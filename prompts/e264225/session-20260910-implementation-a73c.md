@@ -132,3 +132,10 @@ push it to github now
 
 Result: User requested pushing immediately in response to the explicit request to publish the session log; uploading it to the existing feature branch and pull request.
 
+
+## Entry 15 — 2026-09-10 (exact time unavailable)
+
+what does this mean?
+
+Result: Explained that files are saved on GitHub on the feature branch, and merging pull request #1 places them on main; this does not deploy a live website.
+
