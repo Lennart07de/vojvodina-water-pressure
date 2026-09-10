@@ -100,3 +100,26 @@ Result: Retried the authorised branch creation; GitHub still returned 403 Resour
 ## Entry 10 — 2026-09-10 (exact time unavailable)
 
 create a new repository and push it there
+
+Result: Created Lennart07de/vojvodina-water-pressure and began uploading the feature branch through the authenticated browser.
+
+## Entry 11 — 2026-09-10 (exact time unavailable)
+
+ist es fertig?
+
+Result: Reported that implementation and tests were complete but upload and pull request remained unfinished.
+
+## Entry 12 — 2026-09-10 (exact time unavailable)
+
+can you finish in a fast way?
+
+
+Result: Uploaded application, source data, supporting modules and tests to the new feature branch; checking the remote tree before opening the pull request.
+
+## Entry 13 — 2026-09-10 (exact time unavailable)
+
+continue
+
+
+Result: Fetched the new GitHub repository and verified all application files match the tested local solution (ignoring line-ending differences). Uploading this session log and opening the feature-branch pull request; no merge requested.
+
