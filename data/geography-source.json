@@ -1,0 +1,11 @@
+{
+  "url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09/releaseData/gbOpen/SRB/ADM1/geoBoundaries-SRB-ADM1.geojson",
+  "revision": "9469f09",
+  "boundaryYear": 2017,
+  "retrievedAt": "2026-09-10T15:02:47.745236+00:00",
+  "licence": "ODbL-1.0",
+  "source": "OpenStreetMap / Wambacher via geoBoundaries",
+  "projection": "EPSG:3035",
+  "samplingGridMetres": 10000,
+  "displaySimplificationMetres": 250
+}
