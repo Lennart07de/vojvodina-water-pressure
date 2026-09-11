@@ -32,23 +32,23 @@ export function isUsable(response:PressureResponse,now=new Date()):boolean {
 // Validate whole point series; one missing day must never become zero rainfall.
 export function parsePoint(raw:unknown,sample:Sample,dates:string[],now=new Date()):PointForecast|null {
   if(!raw || typeof raw!=='object') return null;
-  const r=raw as Record<string,any>;
-  if(!Number.isFinite(r.latitude)||!Number.isFinite(r.longitude)||r.timezone!=='Europe/Belgrade') return null;
+  const r=raw as {latitude?:unknown;longitude?:unknown;timezone?:unknown;daily_units?:{precipitation_sum?:unknown;et0_fao_evapotranspiration?:unknown};daily?:{time?:unknown;precipitation_sum?:unknown[];et0_fao_evapotranspiration?:unknown[]};hourly?:{time?:unknown;soil_moisture_7_to_28cm?:unknown[]};hourly_units?:{soil_moisture_7_to_28cm?:unknown}};
+  if(typeof r.latitude!=='number'||typeof r.longitude!=='number'||!Number.isFinite(r.latitude)||!Number.isFinite(r.longitude)||r.timezone!=='Europe/Belgrade') return null;
   if(r.daily_units?.precipitation_sum!=='mm'||r.daily_units?.et0_fao_evapotranspiration!=='mm') return null;
   if(!Array.isArray(r.daily?.time)||new Set(r.daily.time).size!==r.daily.time.length) return null;
   const days:Daily[]=[];
   for(const date of dates){
     const i=r.daily.time.indexOf(date);
     const p=r.daily.precipitation_sum?.[i], e=r.daily.et0_fao_evapotranspiration?.[i];
-    if(i<0||!Number.isFinite(p)||!Number.isFinite(e)||p<0||e<0) return null;
+    if(i<0||typeof p!=='number'||typeof e!=='number'||!Number.isFinite(p)||!Number.isFinite(e)||p<0||e<0) return null;
     days.push({date,precipitation:p,et0:e});
   }
   let soil:number|null=null,soilTime:string|null=null;
   // Use today's 00:00 model state, never a future moisture value as a current observation.
   const target=belgradeDate(now)+'T00:00';
-  const i=r.hourly?.time?.indexOf(target)??-1;
+  const i=Array.isArray(r.hourly?.time)?r.hourly.time.indexOf(target):-1;
   const sm=r.hourly?.soil_moisture_7_to_28cm?.[i];
-  if(r.hourly_units?.soil_moisture_7_to_28cm==='m³/m³' && i>=0 && Number.isFinite(sm) && sm>=0 && sm<=1){soil=sm;soilTime=target;}
+  if(r.hourly_units?.soil_moisture_7_to_28cm==='m³/m³' && i>=0 && typeof sm==='number' && Number.isFinite(sm) && sm>=0 && sm<=1){soil=sm;soilTime=target;}
   return {id:sample.id,latitude:r.latitude,longitude:r.longitude,days,soil,soilTime};
 }
 

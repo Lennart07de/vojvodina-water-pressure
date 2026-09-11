@@ -146,3 +146,43 @@ ok merge it
 
 Result: Explicit merge authorization received; publishing the latest session entries before merging pull request #1 and verifying main.
 
+
+## Entry 17 — 2026-09-10 (exact time unavailable)
+
+from all those files on github, how is the website displayed?
+
+Result: Explained how source files, server and browser produce the website.
+
+## Entry 18 — 2026-09-10 (exact time unavailable)
+
+how to open the website?
+
+Result: Provided local development URL and commands.
+
+## Entry 19 — 2026-09-10 (exact time unavailable)
+
+does it load only for me or for all other peoplethat work on it on github?=
+
+Result: Explained localhost is local and a shared URL needs deployment.
+
+## Entry 20 — 2026-09-11 (exact time unavailable)
+
+Logging gap: the preceding Vercel build-log question was not recorded when received. See this conversation for its complete verbatim build output. Diagnosis: Vercel expected Next.js output while the project built with Vinext.
+
+## Entry 21 — 2026-09-11 (exact time unavailable)
+
+Convert this project from Vinext/Sites/Cloudflare to standard Next.js so it can deploy on Vercel.
+
+Make the changes directly in the project:
+
+- Replace Vinext with standard Next.js and update dependencies, scripts, and configuration.
+- Remove or replace Sites/Cloudflare-specific setup and runtime APIs.
+- Preserve the existing design and functionality, including the `/api/pressure` endpoint.
+- Ensure Vercel can detect Next.js and deploy using its standard build settings, without a custom output-directory workaround.
+- Check environment variables and document anything I need to configure in Vercel.
+- Run the production build and relevant checks, and fix any migration errors.
+
+Use standard Next.js rather than a Vinext/Nitro adapter. Finish the migration, then summarize the changes, validation results, and any remaining Vercel setup steps.
+
+Result: Migrated to standard Next.js, removed Sites/Cloudflare runtime and unused database/auth helpers, documented default Vercel setup and no required environment variables. Clean install, nine tests, lint, TypeScript and production build passed; production HTTP checks returned all seven districts and 351 real forecast samples. Changes saved locally on feat/standard-nextjs-vercel; no Vercel deployment performed.
+
