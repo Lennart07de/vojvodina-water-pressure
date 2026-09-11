@@ -65,7 +65,7 @@ npm run typecheck
 npm run build
 ```
 
-The app uses the Sites Vinext/React starter with a Cloudflare-compatible server route. The optional database/auth examples supplied by the starter are unused; no database bindings or sign-in flow are enabled. Sites' private hosting access is separate from application accounts.
+The app uses standard Next.js App Router and React, with a Node.js route handler for `/api/pressure`. No database, application accounts, Cloudflare bindings or Sites runtime are required.
 
 ## Method: weather-deficit-v1
 
@@ -110,7 +110,7 @@ Open-Meteo forecast data are CC BY 4.0; attribute Open-Meteo and ECMWF and ident
 
 District status is `available` or `missing`. A missing district has null score, grade and numeric totals, a clear reason, and valid/expected sample counts. Null, negative, wrong-unit or incomplete rainfall/ET0 series invalidate the point, and any invalid point invalidates that district. No zero-filling or partial-area renormalisation is allowed. Test-only synthetic fixtures are never imported by the app.
 
-The fixed 351 samples are batched in requests of at most 40 locations with at most three concurrent requests. In-process and edge caching reuse complete results for six hours; failures are briefly cached for five minutes. Concurrent requests share one refresh within an isolate. There is no durable storage or global cross-region rate limiter, so this is a small educational prototype, not a public high-traffic service.
+The fixed 351 samples are batched in requests of at most 40 locations with at most three concurrent requests. In-process caching reuses complete results for six hours; failures are briefly cached for five minutes. Concurrent requests share one refresh within a warm Node.js process. There is no durable storage or global cross-region rate limiter, so this is a small educational prototype, not a public high-traffic service.
 
 Weather data become unusable after 24 hours or at the next local date boundary when the selected future window changes. Optional EDO metadata older than 21 days is labelled stale. RHMZ parses only its explicitly labelled discharge column and report date; unexpected markup or missing values produce a missing-data message. Since publication time is absent, station reports are conservatively marked historical when their report date is two or more local calendar dates old. Optional source failures do not change classification. Source failure never causes invented fallback data.
 
@@ -130,3 +130,17 @@ python scripts/prepare-geography.py
 The generator checks valid polygons, exactly seven districts, positive sample areas and district-area conservation. `npm test` covers thresholds, area weighting, missing samples, invalid values, nulls, time-zone transitions, cache expiry, river parsing and geographic membership. Type checking and a production build validate the application separately.
 
 Live smoke check on 2026-09-10: all 351 samples completed; the then-current result was one Low district and six Medium districts. These are historical verification results, not a frozen forecast or expected future classification.
+
+## Deploy on Vercel (standard Next.js)
+
+Import this repository with framework preset **Next.js** and the repository root as Root Directory. Use the default install command, `npm run build`, and the default Output Directory; remove any old overrides for Vinext or `dist`. The build uses `next build` and creates the standard `.next/routes-manifest.json`. Select Node.js **24.x**, matching package.json. No custom adapter or vercel.json is needed.
+
+No environment variables or API keys are required. Remove old Sites/Cloudflare/Wrangler variables if copied from another deployment; none are read by the application. Do not add a database or authentication integration. Public source URLs are fixed server-side; forecast requests are not made during the build.
+
+Keep Vercel Fluid compute enabled: `/api/pressure` declares a 120-second maximum duration for its bounded forecast batches. In-process caching is opportunistic and can disappear on cold starts or deployments; separate function instances do not share it. All responses use `Cache-Control: no-store`, and all upstream fetches bypass Next.js caching so no CDN or framework cache can extend the validity window. This remains a small educational prototype subject to upstream rate limits.
+
+Validate locally with `npm ci`, `npm test`, `npm run typecheck`, and `npm run build`. Run the production server with `npm start` and open http://localhost:3000; development remains on http://localhost:5173 with `npm run dev`. After deploying, check both `/` and `/api/pressure`; upstream outages must produce clearly missing district scores.
+
+References: [Next.js deployment](https://nextjs.org/docs/app/getting-started/deploying), [route runtime and duration](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config), [Vercel function limits](https://vercel.com/docs/functions/limitations).
+
+Migration validation (11 September 2026): clean npm ci, nine domain tests, ESLint, TypeScript and next build passed. The production server returned HTTP 200 for the page and API, with all seven districts and all 351 sample locations available. Restricted-network testing returned missing scores rather than invented values. The standard .next/routes-manifest.json is generated. Vercel deployment itself has not yet been run for this migration.

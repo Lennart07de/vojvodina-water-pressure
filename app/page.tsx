@@ -20,7 +20,7 @@ export default function Home(){
     catch(e){if(mounted.current)setError(e instanceof Error?e.message:'Forecast unavailable.');}
     finally{if(mounted.current)setLoading(false);}
   }
-  useEffect(()=>{mounted.current=true;setNow(new Date());void refresh();const tick=setInterval(()=>setNow(new Date()),60000);return()=>{mounted.current=false;clearInterval(tick);};},[]);
+  useEffect(()=>{mounted.current=true;const initial=setTimeout(()=>{setNow(new Date());void refresh();},0);const tick=setInterval(()=>setNow(new Date()),60000);return()=>{mounted.current=false;clearTimeout(initial);clearInterval(tick);};},[]);
   const usable=data&&now&&isUsable(data,now)?data:null;
   const period=usable?.window??(now?forecastWindow(now):null),district=usable?.districts.find(d=>d.id===selected),geo=geography.find(d=>d.id===selected)!;
   const sorted=[...(usable?.districts??[])].sort((a,b)=>(b.deficit??-1)-(a.deficit??-1)||a.name.localeCompare(b.name));
