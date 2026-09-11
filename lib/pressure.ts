@@ -24,7 +24,7 @@ export function forecastWindow(now=new Date()) {
 }
 export function classification(deficit:number):Grade { return deficit < 10 ? 'Low' : deficit < 20 ? 'Medium' : 'High'; }
 export function actionFor(grade:Grade) {return grade==='High'?'Prioritise water-saving measures':grade==='Medium'?'Prepare restrictions':'Monitor';}
-export function isUsable(response:PressureResponse,now=new Date()):boolean {
+export function isUsable(response:Pick<PressureResponse,'window'|'retrievedAt'>,now=new Date()):boolean {
   const age=now.getTime()-Date.parse(response.retrievedAt);
   return age>=0 && age<86400000 && response.window.start===forecastWindow(now).start;
 }

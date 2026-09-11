@@ -9,7 +9,7 @@
     "dev": "next dev --port 5173",
     "build": "next build",
     "start": "next start",
-    "test": "node --experimental-strip-types --test tests/pressure.test.ts",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
     "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint .",
     "install:ci": "npm ci"

@@ -200,3 +200,17 @@ ok make this changes
 
 Result: Added regional monitoring guidance, ranking caveats, conditional zero-high-pressure caption, inline forecast validity/retrieval dates, and accurate opportunistic-cache wording. Scoring is unchanged. Production build, TypeScript, nine domain tests and lint passed.
 
+
+## Municipality drill-down — 2026-09-11 (exact time unavailable)
+
+Ok great so make the changes as you recommended, as an optional second level and do everything you said
+
+
+## Entry 24 — 2026-09-11 (exact time unavailable)
+
+ok so if all the changes are made you can merge it
+
+Result: Final authorization received to publish and merge the municipality drill-down after validation.
+
+
+Result: Municipality drill-down validated; pushed on feat/municipality-drilldown and merged through the requested pull request.
