@@ -193,3 +193,10 @@ push changes to github
 
 Result: Publishing the standard Next.js migration on a feature branch and preparing a pull request.
 
+
+## Decision-guidance update — 2026-09-11 (exact time unavailable)
+
+ok make this changes
+
+Result: Added regional monitoring guidance, ranking caveats, conditional zero-high-pressure caption, inline forecast validity/retrieval dates, and accurate opportunistic-cache wording. Scoring is unchanged. Production build, TypeScript, nine domain tests and lint passed.
+

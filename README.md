@@ -144,3 +144,7 @@ Validate locally with `npm ci`, `npm test`, `npm run typecheck`, and `npm run bu
 References: [Next.js deployment](https://nextjs.org/docs/app/getting-started/deploying), [route runtime and duration](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config), [Vercel function limits](https://vercel.com/docs/functions/limitations).
 
 Migration validation (11 September 2026): clean npm ci, nine domain tests, ESLint, TypeScript and next build passed. The production server returned HTTP 200 for the page and API, with all seven districts and all 351 sample locations available. Restricted-network testing returned missing scores rather than invented values. The standard .next/routes-manifest.json is generated. Vercel deployment itself has not yet been run for this migration.
+
+## Monitoring guidance
+
+The regional summary highlights the three largest forecast deficits as starting points for targeted monitoring only when all seven districts have complete data. This is not a new score, validated top-three cutoff, or restriction order. Ranks use unrounded deficits; equal displayed values can rank differently, and small differences may not be meaningful. Local supply, canal operations, crop needs and allocations must be checked before considering restrictions. District precipitation and ET0 show their forecast window and retrieval time beside the source link. The interface describes the opportunistic per-instance cache rather than promising a global six-hour refresh interval.
