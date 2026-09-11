@@ -186,3 +186,10 @@ Use standard Next.js rather than a Vinext/Nitro adapter. Finish the migration, t
 
 Result: Migrated to standard Next.js, removed Sites/Cloudflare runtime and unused database/auth helpers, documented default Vercel setup and no required environment variables. Clean install, nine tests, lint, TypeScript and production build passed; production HTTP checks returned all seven districts and 351 real forecast samples. Changes saved locally on feat/standard-nextjs-vercel; no Vercel deployment performed.
 
+
+## Entry 22 — 2026-09-11 (exact time unavailable)
+
+push changes to github
+
+Result: Publishing the standard Next.js migration on a feature branch and preparing a pull request.
+
