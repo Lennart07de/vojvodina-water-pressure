@@ -4,9 +4,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Water / Vojvodina — Seven-day irrigation pressure",
   description: "Explore transparent, weather-based irrigation pressure across Vojvodina’s seven districts using real public forecasts.",
-  other: {
-    "codex-preview": "development",
-  },
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
