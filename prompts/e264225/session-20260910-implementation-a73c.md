@@ -223,3 +223,22 @@ push it now/merge it
 
 Result: Resumed publishing and merging the validated municipality changes at the user's request.
 
+
+## Entry 26 — 2026-09-16
+
+what were the changes?
+
+## Entry 27 — 2026-09-16
+
+are you sure its visible on vercel? did you push it to github?
+
+## Entry 28 — 2026-09-16
+
+Change the municipaltiy view. make it on the map if possible: First map how it is right now, and when zooming in, make the municiplaities appear when getting closer. possible?
+
+## Entry 29 — 2026-09-16
+
+do it
+
+Result: Replaced the separate municipality map with a zoom-triggered layer on the main map. Verified threshold, selection, live municipal colours and reset in browser; 14 tests, lint, typecheck and production build passed.
+
