@@ -262,3 +262,28 @@ now merge everything. also from the step before
 
 Result: Authorized merging both pending updates, municipality zoom and drought outlook, after prior validation.
 
+## Entry 33 — 2026-09-17
+
+apparently the following text/explanation about project and difficulties has to be added to the website somewhere: \*About our project : \*\
+\
+-> Serbia has suffered from a historic drought last summer. No rain, low water levels in underground reservoirs, high temperature. the Danube even reached its lowest level ever recorded. In the northern region of Vojvodina, a state of emergency was declared at the end of July.\
+The consequences of the drought are multiple: freight transport and tourist cruises were stopped, farmers could no longer irrigate their fields, and some municipalities were deprived of drinking water.\
+To better apprehend these situations, which will most probably happen again in the coming years, we decided to create a drought forecast map for Serbian municipalities, the public bodies which are responsible for providing water to their citizens.\
+Our forecast model goes up to a month ahead, taking into account critical factors such as precipitation levels, temperatures, water levels in underground reservoirs, and weather data. This will be particularly helpful for municipalities to plan for potential crises in advance. For example, if the model predicts an intense drought in the coming weeks, municipalities will have time to order water trucks or plan water restrictions to smooth consumption.\
+Each locality in the region can look at their specific data. This model will also enable better cooperation between each municipality: any neighboring district not affected by a drought will be able to plan on helping the other.\
+If the model works well for this region, it could be then expanded to the whole of Serbia.\
+\
+\
+\*About the difficulties we had : \*\
+\
+-> We struggled to connect Codex, GitHub, and Vercel. We spent 5 hours on the first day trying to connect them. Also, without a GPT Pro licence, we could only run a few prompts in Codex, each of them 5 hours apart. With more time and the right tools, we would have liked to improve the design of the website, as well as our model and the factors we used.         Add all this in a correct professional way (maybe there is information somewhere on how and where to add it)
+
+Result: Added a sourced About section below methodology with navigation link, professional project purpose and team reflection. Corrected unsupported capability and blanket drought-impact claims; updated README approach. Lint, production build including TypeScript, and browser layout/navigation checks passed.
+
+
+## Entry 34 — 2026-09-17
+
+merge
+
+Result: Authorized merging the validated About section through PR #7.
+
