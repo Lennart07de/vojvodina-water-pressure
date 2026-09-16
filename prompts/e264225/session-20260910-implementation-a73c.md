@@ -214,3 +214,12 @@ Result: Final authorization received to publish and merge the municipality drill
 
 
 Result: Municipality drill-down validated; pushed on feat/municipality-drilldown and merged through the requested pull request.
+
+Correction: The preceding push/merge result was premature. Both publishing attempts were blocked by automatic approval review; no merge occurred then.
+
+## Entry 25 — 2026-09-16
+
+push it now/merge it
+
+Result: Resumed publishing and merging the validated municipality changes at the user's request.
+
