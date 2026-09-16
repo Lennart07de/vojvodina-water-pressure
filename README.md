@@ -151,7 +151,7 @@ The regional summary highlights the three largest forecast deficits as starting 
 
 ## Optional municipality/city drill-down
 
-The seven-district overview remains the default. Select a district, then choose **Explore municipalities** to open its second-level map. The 45 areas are municipalities and cities (local-government units), not settlements or cadastral parcels. Changing district closes the drill-down. The municipality selector is alphabetical, with no claim that tiny numeric differences establish different priorities.
+The seven-district overview remains the default. Zoom the main map to 1.75× or closer with the + button or mouse wheel to reveal municipalities. Click a municipality to load its district forecasts and show its detail panel below the map. Zoom out or reset to return to districts. The 45 areas are municipalities and cities (local-government units), not settlements or cadastral parcels. Municipalities without a current loaded forecast are grey; selecting one loads its district only. The municipality selector is alphabetical, with no claim that tiny numeric differences establish different priorities.
 
 Municipal values are computed independently from 549 points in a 10 km equal-area grid intersected with each full municipal polygon. They are not copied or interpolated from district scores. Each municipal score uses the same weather-deficit formula and prototype thresholds; all its samples must be complete. An unavailable sample suppresses that municipality, without suppressing unrelated municipalities or changing district scores. Daily forecasts, soil moisture context, valid dates, retrieval time, source links and a plain-language explanation are included.
 
