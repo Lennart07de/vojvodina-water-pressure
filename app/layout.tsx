@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Water / Vojvodina — Seven-day irrigation pressure",
-  description: "Explore transparent, weather-based irrigation pressure across Vojvodina’s seven districts using real public forecasts.",
+  title: "Drought Forecast / Vojvodina",
+  description: "Explore Vojvodina rainfall and temperature outlooks from one to 30 days, recent precipitation versus normal, and seven-day weather pressure.",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

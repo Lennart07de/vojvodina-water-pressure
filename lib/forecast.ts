@@ -10,7 +10,7 @@ export async function fetchForecastPoints(samples:Sample[],now:Date){
     while(next<batches.length){
       const batch=batches[next++];
       const url=new URL('https://api.open-meteo.com/v1/ecmwf');
-      url.search=new URLSearchParams({latitude:batch.map(s=>s.lat).join(','),longitude:batch.map(s=>s.lon).join(','),models:'ecmwf_ifs',daily:'precipitation_sum,et0_fao_evapotranspiration',hourly:'soil_moisture_7_to_28cm',forecast_days:'8',timezone:'Europe/Belgrade',cell_selection:'nearest'}).toString();
+      url.search=new URLSearchParams({latitude:batch.map(s=>s.lat).join(','),longitude:batch.map(s=>s.lon).join(','),models:'ecmwf_ifs',daily:'precipitation_sum,et0_fao_evapotranspiration,temperature_2m_mean',hourly:'soil_moisture_7_to_28cm',forecast_days:'8',timezone:'Europe/Belgrade',cell_selection:'nearest'}).toString();
       try{
         const r=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(25000)});
         if(!r.ok){failed++;continue;}

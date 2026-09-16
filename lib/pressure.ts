@@ -4,9 +4,9 @@ export const EDO_SOURCE = 'https://drought.emergency.copernicus.eu/data/wms-serv
 export const RIVER_SOURCE = 'https://www.hidmet.gov.rs/latin/hidrologija/izvestajne/prognoza.php?hm_id=42035';
 export type Sample = {id:string;district:string;lat:number;lon:number;area:number};
 export type Grade = 'Low'|'Medium'|'High';
-export type Daily = {date:string;precipitation:number;et0:number};
+export type Daily = {temperature?:number|null;date:string;precipitation:number;et0:number};
 export type PointForecast = {id:string;latitude:number;longitude:number;days:Daily[];soil:number|null;soilTime:string|null};
-export type DistrictResult = {id:string;name:string;status:'available'|'missing';grade:Grade|null;score:number|null;deficit:number|null;precipitation:number|null;et0:number|null;days:Daily[];soil:number|null;soilTime:string|null;expectedSamples:number;validSamples:number;reason:string|null;action:string;explanation:string;};
+export type DistrictResult = {temperature?:number|null;id:string;name:string;status:'available'|'missing';grade:Grade|null;score:number|null;deficit:number|null;precipitation:number|null;et0:number|null;days:Daily[];soil:number|null;soilTime:string|null;expectedSamples:number;validSamples:number;reason:string|null;action:string;explanation:string;};
 export type River = {status:'available'|'missing'|'stale';value:number|null;date:string|null;retrievedAt:string;source:string;message:string};
 export type Edo = {status:'context'|'missing'|'stale';latestDate:string|null;retrievedAt:string;source:string;message:string};
 export type PressureResponse = {method:string;window:{start:string;end:string;dates:string[]};retrievedAt:string;model:string;resolution:string;districts:DistrictResult[];edo:Edo;river:River;warning:string|null;gridPoints:{id:string;requested:[number,number];returned:[number,number]|null}[]};
@@ -32,7 +32,7 @@ export function isUsable(response:Pick<PressureResponse,'window'|'retrievedAt'>,
 // Validate whole point series; one missing day must never become zero rainfall.
 export function parsePoint(raw:unknown,sample:Sample,dates:string[],now=new Date()):PointForecast|null {
   if(!raw || typeof raw!=='object') return null;
-  const r=raw as {latitude?:unknown;longitude?:unknown;timezone?:unknown;daily_units?:{precipitation_sum?:unknown;et0_fao_evapotranspiration?:unknown};daily?:{time?:unknown;precipitation_sum?:unknown[];et0_fao_evapotranspiration?:unknown[]};hourly?:{time?:unknown;soil_moisture_7_to_28cm?:unknown[]};hourly_units?:{soil_moisture_7_to_28cm?:unknown}};
+  const r=raw as {latitude?:unknown;longitude?:unknown;timezone?:unknown;daily_units?:{temperature_2m_mean?:unknown;precipitation_sum?:unknown;et0_fao_evapotranspiration?:unknown};daily?:{temperature_2m_mean?:unknown[];time?:unknown;precipitation_sum?:unknown[];et0_fao_evapotranspiration?:unknown[]};hourly?:{time?:unknown;soil_moisture_7_to_28cm?:unknown[]};hourly_units?:{soil_moisture_7_to_28cm?:unknown}};
   if(typeof r.latitude!=='number'||typeof r.longitude!=='number'||!Number.isFinite(r.latitude)||!Number.isFinite(r.longitude)||r.timezone!=='Europe/Belgrade') return null;
   if(r.daily_units?.precipitation_sum!=='mm'||r.daily_units?.et0_fao_evapotranspiration!=='mm') return null;
   if(!Array.isArray(r.daily?.time)||new Set(r.daily.time).size!==r.daily.time.length) return null;
@@ -41,7 +41,8 @@ export function parsePoint(raw:unknown,sample:Sample,dates:string[],now=new Date
     const i=r.daily.time.indexOf(date);
     const p=r.daily.precipitation_sum?.[i], e=r.daily.et0_fao_evapotranspiration?.[i];
     if(i<0||typeof p!=='number'||typeof e!=='number'||!Number.isFinite(p)||!Number.isFinite(e)||p<0||e<0) return null;
-    days.push({date,precipitation:p,et0:e});
+    const temperature=r.daily.temperature_2m_mean?.[i];
+    days.push({date,precipitation:p,et0:e,temperature:r.daily_units?.temperature_2m_mean==='°C'&&typeof temperature==='number'&&Number.isFinite(temperature)?temperature:null});
   }
   let soil:number|null=null,soilTime:string|null=null;
   // Use today's 00:00 model state, never a future moisture value as a current observation.
@@ -58,12 +59,14 @@ export function scoreDistrict(id:string,name:string,samples:Sample[],points:Map<
   if(!samples.length || available.length!==samples.length) return missing;
   const area=samples.reduce((a,s)=>a+s.area,0);
   if(!Number.isFinite(area)||area<=0||samples.some(s=>!Number.isFinite(s.area)||s.area<=0)) return missing;
-  let deficit=0;
+  let deficit=0,temperature=0,temperatureComplete=true;
   const days=dates.map(date=>({date,precipitation:0,et0:0}));
   let soil=0,soilComplete=true,soilTime:string|null=null;
   for(const s of samples){
     const p=points.get(s.id)!; const weight=s.area/area;
     if(p.days.length!==7 || p.days.some((d,i)=>d.date!==dates[i]||!Number.isFinite(d.precipitation)||!Number.isFinite(d.et0)||d.precipitation<0||d.et0<0)) return missing;
+    const temperatures=p.days.map(d=>d.temperature);
+    if(temperatures.every((t):t is number=>typeof t==='number'&&Number.isFinite(t)))temperature+=weight*temperatures.reduce((a,b)=>a+b,0)/dates.length;else temperatureComplete=false;
     deficit+=weight*Math.max(0,p.days.reduce((a,d)=>a+d.et0-d.precipitation,0));
     p.days.forEach((d,i)=>{days[i].precipitation+=weight*d.precipitation;days[i].et0+=weight*d.et0;});
     if(p.soil===null || (soilTime!==null && soilTime!==p.soilTime)) soilComplete=false;
@@ -72,7 +75,7 @@ export function scoreDistrict(id:string,name:string,samples:Sample[],points:Map<
   const precipitation=days.reduce((a,d)=>a+d.precipitation,0),et0=days.reduce((a,d)=>a+d.et0,0);
   const grade=classification(deficit),score=Math.min(100,100*deficit/30);
   const explanation=`Forecast precipitation averages ${precipitation.toFixed(1)} mm and reference evapotranspiration ${et0.toFixed(1)} mm across this district. The area-weighted deficit is ${deficit.toFixed(1)} mm, placing it in the ${grade.toLowerCase()} pressure band (${grade==='Low'?'below 10 mm':grade==='Medium'?'10 to below 20 mm':'20 mm or more'}). This indicates weather-driven pressure, not confirmed water scarcity.`;
-  return {...missing,status:'available',grade,score,deficit,precipitation,et0,days,soil:soilComplete?soil:null,soilTime:soilComplete?soilTime:null,reason:null,action:actionFor(grade),explanation};
+  return {...missing,temperature:temperatureComplete?temperature:null,status:'available',grade,score,deficit,precipitation,et0,days,soil:soilComplete?soil:null,soilTime:soilComplete?soilTime:null,reason:null,action:actionFor(grade),explanation};
 }
 
 export function parseRiver(html:string,now=new Date()):River {
