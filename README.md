@@ -46,7 +46,7 @@ These questions aren't here to slow you down — they're part of what's being ev
 
 ## Our Approach
 
-We built an interactive decision-support map for a regional water-management authority in Vojvodina, Serbia. It compares weather-driven irrigation pressure across seven districts for seven complete future days so the authority can focus monitoring, prepare restriction options, or prioritise water-saving measures. The prototype uses real public forecasts and transparent calculations; it does not predict water availability or authorise restrictions.
+We built Drought Forecast for municipal teams, water utilities and regional water-management authorities in Vojvodina, Serbia. The map compares seven-day weather-driven irrigation pressure across seven districts and offers municipality detail when zoomed in. A separate 1–30-day rainfall and temperature ensemble outlook and recent rainfall comparisons help inform preparedness and coordination. The prototype uses real public data and transparent calculations; it does not predict local water availability or authorise restrictions, and verified groundwater and reservoir feeds remain unavailable. The website’s About section explains the motivation, intended use, limitations and the team’s development experience.
 
 ## Run the prototype
 
