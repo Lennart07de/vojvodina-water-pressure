@@ -242,3 +242,23 @@ do it
 
 Result: Replaced the separate municipality map with a zoom-triggered layer on the main map. Verified threshold, selection, live municipal colours and reset in browser; 14 tests, lint, typecheck and production build passed.
 
+
+## Entry 30 — 2026-09-16
+
+Change the name to drought forecast, and also take into account water reservoir levels and temperatures. and also make a comparison for each region for the current level of precipitation and normal level of precipitation. Also change the forecast option to a timeline where you can chose from one day to 30 days.
+
+
+## Entry 31 — 2026-09-17
+
+continue if not done
+
+
+Result: Implemented Drought Forecast branding, 1–30-day GFS ensemble timeline, temperature indicators and seven-district recent rainfall versus 1991–2020 ERA5 normal. Reservoir data explicitly unavailable pending a reliable source. Production browser/API checks passed for all seven districts; 21 tests, lint, TypeScript and build passed.
+
+
+## Entry 32 — 2026-09-17
+
+now merge everything. also from the step before
+
+Result: Authorized merging both pending updates, municipality zoom and drought outlook, after prior validation.
+

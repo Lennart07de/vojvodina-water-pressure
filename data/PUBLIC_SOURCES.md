@@ -42,3 +42,8 @@ Only reach for these if your team has time left and wants a technical stretch. T
 ## Municipality drill-down source
 
 The prototype uses geoBoundaries SRB ADM2, pinned to revision 9469f09, representing 2017 OpenStreetMap/Wambacher municipal/city boundaries under ODbL-1.0: https://www.geoboundaries.org/api/current/gbOpen/SRB/ADM2/ . The 45 Vojvodina areas and district counts are cross-checked against the Statistical Office: https://www.stat.gov.rs/sr-Latn/oblasti/registar-prostornih-jedinica-i-gis/administrativno-teritorijalna-podela-i-nstj-nivoi-1-2-3/nstj-1-vojvodina . Current official cadastral accuracy is not claimed. Source hash, retrieval date and geometry checks are in data/municipality-source.json. Municipal weather is independently sampled from the same Open-Meteo ECMWF endpoint and retains its approximately 9 km resolution.
+
+## Extended outlook and climate context
+
+See [OUTLOOK_SOURCES.md](OUTLOOK_SOURCES.md) for verified GFS ensemble and ERA5 sources, the committed 1991–2020 baseline, and the unresolved reservoir-level data gap (checked 16 September 2026).
+
