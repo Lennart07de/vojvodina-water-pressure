@@ -10,7 +10,7 @@ export default function AboutProject(){
       </article>
       <article><h3>What we built and who it serves</h3>
         <p>Drought Forecast is a decision-support prototype for municipal teams, water utilities and regional water-management authorities. It brings public weather information into one map so they can identify where closer monitoring may be needed and prepare for possible water stress.</p>
-        <p>The map compares seven-day weather-driven irrigation pressure across Vojvodina’s seven districts, with municipality detail appearing as users zoom in. A separate timeline provides rainfall and temperature ensemble outlooks from one to 30 days. Recent rainfall is also compared with a 1991–2020 baseline at representative district locations.</p>
+        <p>The map compares seven-day weather-driven irrigation pressure across Vojvodina’s seven districts, with municipality detail appearing when users select a district. A separate timeline provides rainfall and temperature ensemble outlooks from one to 30 days. Recent rainfall is also compared with a 1991–2020 baseline at representative district locations.</p>
         <p>We use published forecasts as inputs; we have not developed or validated a hydrological drought prediction model. Groundwater and reservoir levels are not included because reliable, current local feeds have not been verified. The 30-day outlook is coarser than the municipal map, and neither establishes how much water a municipality has available.</p>
       </article>
       <article><h3>How it could support preparedness</h3>
