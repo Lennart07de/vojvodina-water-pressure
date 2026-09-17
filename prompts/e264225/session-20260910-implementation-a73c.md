@@ -304,3 +304,10 @@ Result: Implemented map-first tabs, integrated municipal detail, selected-distri
 change the map zooming behaviour. rather than zoombing manually, make the regions appear first, and when clicking on a region, it expands automatically to the municipalities. you know?
 
 Result: Replaced manual zoom with district click-to-expand, automatic fitting to municipal boundaries, district-list switching and Back to districts. Removed scroll zoom and dragging, retained keyboard selection and updated documentation. Changed-file lint, production build/TypeScript and browser click/back/keyboard checks passed.
+
+## Entry 38 — 2026-09-17
+
+merge all steps
+
+Result: Authorized merging both the layout and district-click navigation changes through PR #8.
+
