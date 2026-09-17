@@ -59,6 +59,8 @@ npm run dev
 
 Open the URL printed by the development server (normally http://localhost:5173). The page loads district geometry immediately, then requests public data. Use the district list or keyboard-accessible map polygons to select a district. Map controls zoom/reset and toggle labels; drag to pan. District details show dated forecasts, scoring, recommended action and source links.
 
+The default **7-day pressure map** tab keeps the map and selected area details together; zooming in replaces district details with independently sampled municipal details. **Red means high weather-driven stress**, amber medium, green low, and grey no current data. These colours do not measure low water-supply pressure or predict drought probability. The separate **1–30-day weather outlook** tab changes only ensemble rainfall and temperature summaries. Recent rainfall versus the 1991–2020 normal is shown as two bars for the selected district's representative point, with dates, percentage of normal and source; full district comparisons and technical explanations can be expanded. A dry recent period and low next-week weather stress can coexist. Reservoir and groundwater availability remain explicitly marked unavailable. Methodology and the full project story remain accessible below the working views.
+
 ```sh
 npm test
 npm run typecheck
